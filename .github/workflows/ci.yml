@@ -1,4 +1,4 @@
-name: CI - Test on all branches
+name: CI
 
 on:
   push:
@@ -6,19 +6,21 @@ on:
   pull_request:
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
-      - name: Install deps
-        run: npm ci
+      - name: Install dependencies
+      # Using npm install instead of npm ci
+        run: npm install
 
       - name: Run tests
         run: npm test
